@@ -6,6 +6,12 @@ let productModal = {};
 let delModal = {};
 
 
+// 匯入元件
+import pagination from './component/pagination.js'
+import updataproduct from "./component/updataproduct.js";
+import deleteproduct from "./component/deleteproduct.js";
+
+
 createApp({
   data(){
     return{
@@ -15,6 +21,11 @@ createApp({
       },
       isNew:false,
     }
+  },
+  components:{
+    pagination,
+    updataproduct,
+    deleteproduct
   },
   methods: {
     //取得資料
