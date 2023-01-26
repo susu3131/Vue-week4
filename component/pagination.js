@@ -1,11 +1,11 @@
 // 分頁
 export default {
+  props:['page'],
   data() {
     return {
-      text: '測試分頁'
     }
   },
-  template: ` <nav aria-label="Page navigation example">
+  template: ` <nav aria-label="Page navigation example"> 
   <ul class="pagination">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -21,5 +21,5 @@ export default {
       </a>
     </li>
   </ul>
-</nav> `
+</nav> {{page}}`
 }

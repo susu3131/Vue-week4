@@ -22,6 +22,7 @@ createApp({
         imagesUrl: [],
       },
       isNew: false,
+      page:{}
     }
   },
   components: {
@@ -31,10 +32,13 @@ createApp({
   },
   methods: {
     //取得資料
-    getData() {
-      const url = `${apiUrl}v2/api/${apiPath}/admin/products/all`
+    getData(page) {
+      const url = `${apiUrl}v2/api/${apiPath}/admin/products/?page=${page}`
       axios.get(url)
-        .then(res => this.products = res.data.products)
+        .then(res => {
+          this.page = res.data.pagination ;
+          this.products = res.data.products
+        })
         .catch(err => console.log(err.data))
     },
     //驗證登入
