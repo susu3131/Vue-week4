@@ -46,8 +46,7 @@
             <td class="text-end"> {{ product.origin_price }}</td>
             <td class="text-end"> {{ product.price }}</td>
             <td>
-              <span class="text-success" v-if="product.is_enabled ? true : false">啟用</span>
-              <span v-else>未啟用</span>
+              <span class="text-success" >{{product.is_enabled ? '啟用' : '未啟用'}}</span>
             </td>
             <td>
               <div class="btn-group">
@@ -62,11 +61,14 @@
           </tr>
         </tbody>
       </table>
+      <!-- 分頁元件 -->
+      <pagination></pagination>
     </div>
     <!-- 元件測試 -->
-    <pagination></pagination>
+
     <deleteproduct></deleteproduct>
     <updataproduct></updataproduct>
+
     <!-- Modal -->
     <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
       aria-hidden="true">
@@ -74,7 +76,7 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 id="productModalLabel" class="modal-title">
-              <span>新增產品</span>
+              <span>{{ isNew ? '新增產品':'編輯產品'}}</span>
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -89,7 +91,7 @@
                   <img class="img-fluid" :src="tempProduct.imageUrl" alt="">
 
                   <div>
-                    <div v-if="Array.isArray(tempProduct.imagesUrl)">
+                    <template v-if="Array.isArray(tempProduct.imagesUrl)">
                       <h4>多圖新增</h4>
                       <template v-for="(img,key) in tempProduct.imagesUrl" :key="key">
                         <input type="text" class="form-control" v-model="tempProduct.imagesUrl[key]">
@@ -107,7 +109,7 @@
                           刪除圖片
                         </button>
                       </div>
-                    </div>
+                    </template>
                   </div>
                 </div>
 
@@ -189,7 +191,7 @@
           </div>
           <div class="modal-body">
             是否刪除
-            <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
+            <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
