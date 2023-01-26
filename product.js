@@ -32,7 +32,7 @@ createApp({
   },
   methods: {
     //取得資料
-    getData(page) {
+    getData( page = 1 ) {
       const url = `${apiUrl}v2/api/${apiPath}/admin/products/?page=${page}`
       axios.get(url)
         .then(res => {
