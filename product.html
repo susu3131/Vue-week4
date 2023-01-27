@@ -46,7 +46,7 @@
             <td class="text-end"> {{ product.origin_price }}</td>
             <td class="text-end"> {{ product.price }}</td>
             <td>
-              <span class="text-success" >{{product.is_enabled ? '啟用' : '未啟用'}}</span>
+              <span class="text-success">{{product.is_enabled ? '啟用' : '未啟用'}}</span>
             </td>
             <td>
               <div class="btn-group">
@@ -62,15 +62,41 @@
         </tbody>
       </table>
       <!-- 分頁元件 -->
-      <pagination :pages = "page " :get-data = "getData"></pagination>
+      <pagination :pages="page " :get-data="getData"></pagination>
     </div>
     <!-- 元件測試 -->
 
-    <deleteproduct></deleteproduct>
-    <updataproduct></updataproduct>
+    <deleteproduct :temp-product="tempProduct"></deleteproduct>
+    <updataproduct :temp-product="tempProduct"></updataproduct>
+
 
     <!-- Modal -->
-    <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
+  </div>
+
+  <!-- Modal -->
+  <script type="text/x-template" id="pagination">
+    <nav aria-label="Page navigation example"> 
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled : !pages.has_pre }">
+          <a class="page-link" href="#" aria-label="Previous"  @click.prevent="getData(pages.current_pages-1)">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item " :class = "{ active : page == pages.current_page}"  v-for = "page in pages.total_pages" :key ="page+'page'"  >
+          <a class="page-link" href="#" @click.prevent="getData(page)">{{ page }}</a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next" :class="{ disabled : !pages.has_next }" @click.prevent="getData(pages.current_page+1)" >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </script>
+
+  <script type="text/x-template" id="productTemplate">
+      <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content border-0">
@@ -179,6 +205,9 @@
         </div>
       </div>
     </div>
+    </script>
+
+  <script type="text/x-template" id="deleteproduct">
     <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
       aria-labelledby="delProductModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -204,10 +233,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal -->
-  </div>
-
-
+  </script>
 
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
