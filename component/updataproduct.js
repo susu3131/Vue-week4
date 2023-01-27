@@ -1,4 +1,4 @@
 export default{
-  props:['tempProduct'],
+  props:['tempProduct','updateProduct','isNew'],
   template:'#productTemplate'
 }
